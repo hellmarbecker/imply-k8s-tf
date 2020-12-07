@@ -5,8 +5,8 @@
 #  * EKS Cluster
 #
 
-resource "aws_iam_role" "cp60-cluster" {
-  name = "terraform-eks-cp60-cluster"
+resource "aws_iam_role" "imply-cluster" {
+  name = "terraform-eks-imply-cluster"
 
   assume_role_policy = <<POLICY
 {
@@ -24,20 +24,20 @@ resource "aws_iam_role" "cp60-cluster" {
 POLICY
 }
 
-resource "aws_iam_role_policy_attachment" "cp60-cluster-AmazonEKSClusterPolicy" {
+resource "aws_iam_role_policy_attachment" "imply-cluster-AmazonEKSClusterPolicy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
-  role       = "${aws_iam_role.cp60-cluster.name}"
+  role       = "${aws_iam_role.imply-cluster.name}"
 }
 
-resource "aws_iam_role_policy_attachment" "cp60-cluster-AmazonEKSServicePolicy" {
+resource "aws_iam_role_policy_attachment" "imply-cluster-AmazonEKSServicePolicy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSServicePolicy"
-  role       = "${aws_iam_role.cp60-cluster.name}"
+  role       = "${aws_iam_role.imply-cluster.name}"
 }
 
-resource "aws_security_group" "cp60-cluster" {
-  name        = "terraform-eks-cp60-cluster"
+resource "aws_security_group" "imply-cluster" {
+  name        = "terraform-eks-imply-cluster"
   description = "Cluster communication with worker nodes"
-  vpc_id      = "${aws_vpc.cp60.id}"
+  vpc_id      = "${aws_vpc.imply.id}"
 
   egress {
     from_port   = 0
@@ -47,36 +47,36 @@ resource "aws_security_group" "cp60-cluster" {
   }
 
   tags = {
-    Name = "terraform-eks-cp60"
-    owner = "cmutzlitz@confluent.io"
+    Name = "terraform-eks-imply"
+    owner = "hellmar.becker@imply.io"
   }
 }
 
-resource "aws_security_group_rule" "cp60-cluster-ingress-workstation-https" {
+resource "aws_security_group_rule" "imply-cluster-ingress-workstation-https" {
   cidr_blocks       = ["${local.workstation-external-cidr}"]
   description       = "Allow workstation to communicate with the cluster API Server"
   from_port         = 443
   protocol          = "tcp"
-  security_group_id = "${aws_security_group.cp60-cluster.id}"
+  security_group_id = "${aws_security_group.imply-cluster.id}"
   to_port           = 443
   type              = "ingress"
 }
 
-resource "aws_eks_cluster" "cp60" {
+resource "aws_eks_cluster" "imply" {
   name     = "${var.cluster-name}"
-  role_arn = "${aws_iam_role.cp60-cluster.arn}"
+  role_arn = "${aws_iam_role.imply-cluster.arn}"
 
   vpc_config {
-    security_group_ids = ["${aws_security_group.cp60-cluster.id}"]
-    subnet_ids         = "${aws_subnet.cp60[*].id}"
+    security_group_ids = ["${aws_security_group.imply-cluster.id}"]
+    subnet_ids         = "${aws_subnet.imply[*].id}"
   }
 
   depends_on = [
-    "aws_iam_role_policy_attachment.cp60-cluster-AmazonEKSClusterPolicy",
-    "aws_iam_role_policy_attachment.cp60-cluster-AmazonEKSServicePolicy",
+    "aws_iam_role_policy_attachment.imply-cluster-AmazonEKSClusterPolicy",
+    "aws_iam_role_policy_attachment.imply-cluster-AmazonEKSServicePolicy",
   ]
   tags = {
-    Name = "terraform-eks-cluster-cp60"
-    owner = "cmutzlitz@confluent.io"
+    Name = "terraform-eks-cluster-imply"
+    owner = "hellmar.becker@imply.io"
   }
 }
