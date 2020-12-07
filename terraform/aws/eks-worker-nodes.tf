@@ -40,7 +40,7 @@ resource "aws_iam_role_policy_attachment" "imply-node-AmazonEC2ContainerRegistry
 
 resource "aws_eks_node_group" "imply" {
   cluster_name    = "${aws_eks_cluster.imply.name}"
-  node_group_name = "cp60"
+  node_group_name = "imply"
   node_role_arn   = "${aws_iam_role.imply-node.arn}"
   subnet_ids      = "${aws_subnet.imply[*].id}"
   ami_type        = "AL2_x86_64"
