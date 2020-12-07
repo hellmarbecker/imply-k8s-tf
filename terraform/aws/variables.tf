@@ -10,7 +10,7 @@ variable "aws_secret_key" {
 }
 
 variable "cluster-name" {
-  default = "cp-60-cluster"
+  default = "imply-cluster"
   type    = "string"
 }
 
