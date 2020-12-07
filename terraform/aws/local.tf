@@ -1,9 +1,9 @@
 resource "null_resource" "setup-cluster" {
   depends_on = [
-    aws_eks_cluster.cp60
+    aws_eks_cluster.imply
   ]
   triggers = {
-    id = aws_eks_cluster.cp60.id
+    id = aws_eks_cluster.imply.id
     // Re-run script on deployment script changes
     script = sha1(file("00_setup_EKS.sh"))
   }
@@ -19,6 +19,6 @@ resource "null_resource" "setup-messaging" {
   ]
 
   provisioner "local-exec" {
-    command = "../01_installConfluentPlatform.sh ${var.aws_region} ${var.cprovider}"
+    command = "../01_installImply.sh ${var.aws_region} ${var.cprovider}"
   }
 }
