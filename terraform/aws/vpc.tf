@@ -50,9 +50,9 @@ resource "aws_route_table" "imply" {
   }
 }
 
-resource "aws_route_table_association" "cp60" {
+resource "aws_route_table_association" "imply" {
   count = var.az_count
 
-  subnet_id      = "${aws_subnet.cp60.*.id[count.index]}"
-  route_table_id = "${aws_route_table.cp60.id}"
+  subnet_id      = "${aws_subnet.imply.*.id[count.index]}"
+  route_table_id = "${aws_route_table.imply.id}"
 }
