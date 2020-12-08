@@ -3,10 +3,12 @@
 #
 variable "aws_access_key" {
   default = "put in our own key"
+  sensitive = true
 }
 
 variable "aws_secret_key" {
   default = "put in your own secret"
+  sensitive = true
 }
 
 variable "cluster-name" {
