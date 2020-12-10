@@ -23,7 +23,7 @@ variable "aws_region" {
 }
 
 variable "az_count" {
-  default = "1"
+  default = "2"
 }
 
 
