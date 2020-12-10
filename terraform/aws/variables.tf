@@ -11,7 +11,7 @@ variable "aws_secret_key" {
 
 variable "cluster-name" {
   default = "imply-cluster"
-  type    = "string"
+  type    = string
 }
 
 variable "node_count" {
