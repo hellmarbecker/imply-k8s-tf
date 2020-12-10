@@ -18,9 +18,9 @@ resource "aws_vpc" "imply" {
 resource "aws_subnet" "imply" {
   count = var.az_count
 
-  availability_zone = "${data.aws_availability_zones.available.names[count.index]}"
+  availability_zone = data.aws_availability_zones.available.names[count.index]
   cidr_block        = "10.0.${count.index}.0/24"
-  vpc_id            = "${aws_vpc.imply.id}"
+  vpc_id            = aws_vpc.imply.id
   map_public_ip_on_launch = true
 
   tags = map(
