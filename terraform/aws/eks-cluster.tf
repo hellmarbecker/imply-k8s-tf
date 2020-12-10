@@ -72,8 +72,8 @@ resource "aws_eks_cluster" "imply" {
   }
 
   depends_on = [
-    "aws_iam_role_policy_attachment.imply-cluster-AmazonEKSClusterPolicy",
-    "aws_iam_role_policy_attachment.imply-cluster-AmazonEKSServicePolicy",
+    aws_iam_role_policy_attachment.imply-cluster-AmazonEKSClusterPolicy,
+    aws_iam_role_policy_attachment.imply-cluster-AmazonEKSServicePolicy,
   ]
   tags = {
     Name = "terraform-eks-cluster-imply"
