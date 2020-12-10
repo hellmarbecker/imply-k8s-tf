@@ -26,18 +26,18 @@ POLICY
 
 resource "aws_iam_role_policy_attachment" "imply-cluster-AmazonEKSClusterPolicy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
-  role       = "${aws_iam_role.imply-cluster.name}"
+  role       = aws_iam_role.imply-cluster.name
 }
 
 resource "aws_iam_role_policy_attachment" "imply-cluster-AmazonEKSServicePolicy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSServicePolicy"
-  role       = "${aws_iam_role.imply-cluster.name}"
+  role       = aws_iam_role.imply-cluster.name
 }
 
 resource "aws_security_group" "imply-cluster" {
   name        = "terraform-eks-imply-cluster"
   description = "Cluster communication with worker nodes"
-  vpc_id      = "${aws_vpc.imply.id}"
+  vpc_id      = aws_vpc.imply.id
 
   egress {
     from_port   = 0
@@ -63,12 +63,12 @@ resource "aws_security_group_rule" "imply-cluster-ingress-workstation-https" {
 }
 
 resource "aws_eks_cluster" "imply" {
-  name     = "${var.cluster-name}"
-  role_arn = "${aws_iam_role.imply-cluster.arn}"
+  name     = var.cluster-name
+  role_arn = aws_iam_role.imply-cluster.arn
 
   vpc_config {
     security_group_ids = ["${aws_security_group.imply-cluster.id}"]
-    subnet_ids         = "${aws_subnet.imply[*].id}"
+    subnet_ids         = aws_subnet.imply[*].id
   }
 
   depends_on = [
