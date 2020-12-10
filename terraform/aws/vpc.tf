@@ -9,8 +9,7 @@
 resource "aws_vpc" "imply" {
   cidr_block = "10.0.0.0/16"
 
-  tags = 
-    map(
+  tags = map(
       "Name", "terraform-eks-imply-node",
       "kubernetes.io/cluster/${var.cluster-name}", "shared",
     )
@@ -24,8 +23,7 @@ resource "aws_subnet" "imply" {
   vpc_id            = "${aws_vpc.imply.id}"
   map_public_ip_on_launch = true
 
-  tags = 
-    map(
+  tags = map(
       "Name", "terraform-eks-imply-node",
       "kubernetes.io/cluster/${var.cluster-name}", "shared",
     )
