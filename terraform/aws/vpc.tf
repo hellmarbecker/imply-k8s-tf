@@ -9,12 +9,11 @@
 resource "aws_vpc" "imply" {
   cidr_block = "10.0.0.0/16"
 
-  tags = "${
+  tags = 
     map(
       "Name", "terraform-eks-imply-node",
       "kubernetes.io/cluster/${var.cluster-name}", "shared",
     )
-  }"
 }
 
 resource "aws_subnet" "imply" {
@@ -25,16 +24,15 @@ resource "aws_subnet" "imply" {
   vpc_id            = "${aws_vpc.imply.id}"
   map_public_ip_on_launch = true
 
-  tags = "${
+  tags = 
     map(
       "Name", "terraform-eks-imply-node",
       "kubernetes.io/cluster/${var.cluster-name}", "shared",
     )
-  }"
 }
 
 resource "aws_internet_gateway" "imply" {
-  vpc_id = "${aws_vpc.imply.id}"
+  vpc_id = aws_vpc.imply.id
 
   tags = {
     Name = "terraform-eks-imply"
@@ -42,17 +40,17 @@ resource "aws_internet_gateway" "imply" {
 }
 
 resource "aws_route_table" "imply" {
-  vpc_id = "${aws_vpc.imply.id}"
+  vpc_id = aws_vpc.imply.id
 
   route {
     cidr_block = "0.0.0.0/0"
-    gateway_id = "${aws_internet_gateway.imply.id}"
+    gateway_id = aws_internet_gateway.imply.id
   }
 }
 
 resource "aws_route_table_association" "imply" {
   count = var.az_count
 
-  subnet_id      = "${aws_subnet.imply.*.id[count.index]}"
-  route_table_id = "${aws_route_table.imply.id}"
+  subnet_id      = aws_subnet.imply.*.id[count.index]
+  route_table_id = aws_route_table.imply.id
 }
