@@ -27,7 +27,7 @@ else
 fi
 
 echo "Installing Imply ..."
-helm install imply imply/imply
+helm install imply imply/imply -f ${MYDIR}/${PROVIDER}/${PROVIDER}.yaml
 
 echo "####################################"
 echo "#### Imply Deployment finished #####"
