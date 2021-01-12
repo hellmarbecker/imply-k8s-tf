@@ -16,7 +16,7 @@ Make sure to have updated versions.
 
 ## Configure Azure Account 
 First of all you need working Azure account.
-1) create SSH key for Azure in your own Resource group `cmutzlitz`(or your own resource Group) in location `Germany West Central`. Change the ssh key entry `variable "ssh_public_key"` in [variables.tf](variables.tf)
+1) create SSH key for Azure in your own named Resource group in location `Germany West Central`. Change the ssh key entry `variable "ssh_public_key"` in [variables.tf](variables.tf)
 
 2) Configure Azure Account and Create Service Principal
   * Login:  `az login`
@@ -46,7 +46,7 @@ terraform apply
 
 # Destroy Infrastructure
 
-We do a force delete. For this you need eksctl 0.31 or later. [Install/Upgrade](https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html#installing-eksctl)
+We do a force delete. [Install/Upgrade](https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html#installing-eksctl)
 
 * Run 'terraform destroy' to stop and remove the created Kubernetes infrastructure
 ```bash
