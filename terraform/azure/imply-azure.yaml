@@ -1,1 +1,242 @@
-# INSERT values.yaml here
+---
+agents:
+  clusterName: default
+  managerHost: "{{ include \"imply.manager.internalService.fullname\" . }}"
+  terminationGracePeriodSeconds: 86400
+dataTier1:
+  affinity: {}
+  annotations: {}
+  extraEnv: []
+  extraVolumeClaimTemplates: {}
+  extraVolumeMounts: []
+  extraVolumes: []
+  labels: {}
+  nodeSelector: {}
+  persistence:
+    enabled: true
+  replicaCount: 2
+  resources:
+    requests:
+      cpu: 400m
+      memory: 1300M
+  segmentCacheVolume:
+    resources:
+      requests:
+        storage: 20Gi
+    selector: {}
+    storageClassName: ~
+  tmpVolume:
+    resources:
+      requests:
+        storage: 10Gi
+    selector: {}
+    storageClassName: ~
+  tolerations: []
+dataTier2:
+  affinity: {}
+  annotations: {}
+  extraEnv: []
+  extraVolumeClaimTemplates: {}
+  extraVolumeMounts: []
+  extraVolumes: []
+  labels: {}
+  nodeSelector: {}
+  persistence:
+    enabled: true
+  replicaCount: 0
+  resources:
+    requests:
+      cpu: 400m
+      memory: 1300M
+  segmentCacheVolume:
+    resources:
+      requests:
+        storage: 20Gi
+    selector: {}
+    storageClassName: ~
+  tmpVolume:
+    resources:
+      requests:
+        storage: 10Gi
+    selector: {}
+    storageClassName: ~
+  tolerations: []
+dataTier3:
+  affinity: {}
+  annotations: {}
+  extraEnv: []
+  extraVolumeClaimTemplates: {}
+  extraVolumeMounts: []
+  extraVolumes: []
+  labels: {}
+  nodeSelector: {}
+  persistence:
+    enabled: true
+  replicaCount: 0
+  resources:
+    requests:
+      cpu: 400m
+      memory: 1300M
+  segmentCacheVolume:
+    resources:
+      requests:
+        storage: 20Gi
+    selector: {}
+    storageClassName: ~
+  tmpVolume:
+    resources:
+      requests:
+        storage: 10Gi
+    selector: {}
+    storageClassName: ~
+  tolerations: []
+deployments:
+  agents: true
+  manager: true
+  minio: false
+  mysql: false
+  zookeeper: true
+druid:
+  brokerRuntimeProperties: []
+  commonRuntimeProperties:
+    - druid.azure.account=<UPDATE_ME>
+    - druid.azure.key=<UPDATE_ME>
+    - druid.azure.container=druid
+    - druid.indexer.logs.type=azure
+    - druid.indexer.logs.container=druid
+    - druid.indexer.logs.prefix=logs
+  coordinatorRuntimeProperties: []
+  deepStorage:
+    password: <UPDATE_ME>
+    path: <UPDATE_ME>
+    type: <UPDATE_ME>
+    user: <UPDATE_ME>
+  historicalRuntimeProperties: []
+  historicalTier1RuntimeProperties: []
+  historicalTier2RuntimeProperties: []
+  historicalTier3RuntimeProperties: []
+  metadataStore:
+    host: "<UPDATE_ME>"
+    password: <UPDATE_ME>
+    port: 3306
+    type: mysql
+    user: imply@imply
+  middleManagerRuntimeProperties: []
+  middleManagerTier1RuntimeProperties: []
+  middleManagerTier2RuntimeProperties: []
+  middleManagerTier3RuntimeProperties: []
+  overlordRuntimeProperties: []
+  pivotRuntimeProperties: []
+  routerRuntimeProperties: []
+  update: disabled
+  zk:
+    basePath: imply
+    connectString: "{{ .Release.Name }}-zookeeper:2181"
+fullnameOverride: ~
+images:
+  agent:
+    repository: imply/agent
+    tag: 2020-10-07
+  manager:
+    repository: imply/manager
+    tag: "2020.12"
+  pullPolicy: IfNotPresent
+ingress: {}
+manager:
+  affinity: {}
+  annotations: {}
+  extraEnv: []
+  extraVolumeMounts: []
+  extraVolumes: []
+  labels: {}
+  licenseKey: ""
+  metadataStore:
+    database: imply-manager
+    host: "imply.database.windows.net"
+    password: Qwerty123!
+    port: 3306
+    type: mysql
+    user: imply@imply
+  nodeSelector: {}
+  resources:
+    limits:
+      cpu: 2
+      memory: 4G
+    requests:
+      cpu: 300m
+      memory: 500M
+  secretName: imply-secrets
+  service:
+    annotations: {}
+    enabled: false
+    labels: {}
+    port: "{{ ternary 80 443 (empty .Values.security.tls) }}"
+    protocol: TCP
+    type: LoadBalancer
+  tolerations: []
+master:
+  affinity: {}
+  annotations: {}
+  extraEnv: []
+  extraVolumeMounts: []
+  extraVolumes: []
+  labels: {}
+  nodeSelector: {}
+  replicaCount: 1
+  resources:
+    limits:
+      cpu: 2
+      memory: 8G
+    requests:
+      cpu: 200m
+      memory: 500M
+  tolerations: []
+minio:
+  accessKey: imply
+  defaultBucket:
+    enabled: true
+    name: imply
+  persistence:
+    enabled: true
+    size: 10Gi
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+  secretKey: implypassword
+mysql:
+  mysqlRootPassword: imply
+  persistence:
+    enabled: true
+nameOverride: ~
+query:
+  affinity: {}
+  annotations: {}
+  extraEnv: []
+  extraVolumeMounts: []
+  extraVolumes: []
+  labels: {}
+  nodeSelector: {}
+  replicaCount: 1
+  resources:
+    requests:
+      cpu: 400m
+      memory: 1200M
+  service:
+    annotations: {}
+    labels: {}
+    pivotPort: 9095
+    protocol: TCP
+    routerPort: 8888
+    type: ClusterIP
+  tolerations: []
+security: {}
+zookeeper:
+  env:
+    ZK_HEAP_SIZE: 512M
+    ZK_PURGE_INTERVAL: 1
+    ZOO_AUTOPURGE_PURGEINTERVAL: 1
+  persistence:
+    enabled: true
+    size: 10Gi
+  replicaCount: 1

@@ -1,16 +1,26 @@
-variable "client_id" {}
-variable "client_secret" {}
+variable "client_id" {
+    default = "xxxx"
+}
+variable "client_secret" {
+    default = "xxxx"
+}
 
 variable "agent_count" {
-    default = 7
+    default = 3
 }
 
 variable "ssh_public_key" {
-    default = "~/keys/<AZURE PUBLIC KEY>.pub"
+    default = "/xxx.pub"
 }
 
 variable "dns_prefix" {
     default = "imply"
+}
+
+variable "vnet_address_space" {
+    type = list
+    description = "Address space for Virtual Network"
+    default = ["10.0.0.0/16"]
 }
 
 variable cluster_name {
@@ -18,27 +28,13 @@ variable cluster_name {
 }
 
 variable resource_group_name {
-    default = "azure-imply"
+    default = "rdobson-rg"
 }
 
 variable location {
-    default = "germanywestcentral"
+    default = "uksouth"
 }
 
 variable cprovider {
     default = "azure"
 }
-
-#variable log_analytics_workspace_name {
-#    default = "implyLogAnalyticsWorkspaceName"
-#}
-
-## refer https://azure.microsoft.com/global-infrastructure/services/?products=monitor for log analytics available regions
-#variable log_analytics_workspace_location {
-#    default = "westcentral"
-#}
-
-## refer https://azure.microsoft.com/pricing/details/monitor/ for log analytics pricing 
-#variable log_analytics_workspace_sku {
-#    default = "PerGB2018"
-#}

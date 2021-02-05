@@ -1,2 +1,2 @@
-export TF_VAR_client_id=<service-principal-appid>
-export TF_VAR_client_secret=<service-principal-password>
+export TF_VAR_client_id=""
+export TF_VAR_client_secret=""
