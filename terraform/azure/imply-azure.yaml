@@ -152,8 +152,8 @@ manager:
   licenseKey: ""
   metadataStore:
     database: imply-manager
-    host: "imply.database.windows.net"
-    password: Qwerty123!
+    host: "<UPDATE_ME>"
+    password: <UPDATE_ME>"
     port: 3306
     type: mysql
     user: imply@imply

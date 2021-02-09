@@ -28,7 +28,7 @@ variable cluster_name {
 }
 
 variable resource_group_name {
-    default = "rdobson-rg"
+    default = "my-rg"
 }
 
 variable location {
