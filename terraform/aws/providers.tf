@@ -1,7 +1,14 @@
 #
 # Provider Configuration
 #
-
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 3.0"
+    }
+  }
+}
 provider "aws" {
   access_key = var.aws_access_key
   secret_key = var.aws_secret_key
@@ -20,4 +27,3 @@ data "aws_availability_zones" "available" {}
 # to open EC2 Security Group access to the Kubernetes cluster.
 # See workstation-external-ip.tf for additional information.
 provider "http" {}
-
