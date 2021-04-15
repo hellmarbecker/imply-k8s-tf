@@ -3,11 +3,11 @@
 # Variables Configuration
 #############################################################
 variable "aws_access_key" {
-  default = "***REMOVED***"
+  default = ""
 }
 
 variable "aws_secret_key" {
-  default = "***REMOVED***"
+  default = ""
 }
 
 variable "cluster-name" {
